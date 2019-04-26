@@ -9,7 +9,10 @@ class LEDControl
   public:
     LEDControl();
     LEDControl(std::string controlString);
-    void applySettings();
+    int getBrightness();
+    int getRed();
+    int getGreen();
+    int getBlue();
 
   private:
     int brightness,

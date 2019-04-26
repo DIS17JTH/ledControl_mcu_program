@@ -80,7 +80,7 @@ void loop()
         i++;
       }
 
-      ledControl = LEDControl(controlString);
+      LEDControl ledControl(controlString);
 
       if ((ledControl.getRed() == 0 && ledControl.getGreen() == 0 && ledControl.getBlue() == 0) || ledControl.getBrightness() == 0) // YOU CAN REMOVE THESE IF & ELSE STATMENTS IF YOU WANT. THEY ARE FOR TEST PURPOSES ONLY
       {
