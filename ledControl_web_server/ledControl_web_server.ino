@@ -34,11 +34,11 @@ void setup()
     Serial.println(".");
   }
 
-  if (WiFi.status() == WL_CONNECTED) // CONNECTION ESSTABLISHED; SLOW BLINK ONCE
+  if (WiFi.status() == WL_CONNECTED) // CONNECTION ESSTABLISHED; BLINK ONCE
   {
-    delay(1000);
+    delay(100);
     digitalWrite(LED_BUILTIN, HIGH);
-    delay(1000);
+    delay(100);
     digitalWrite(LED_BUILTIN, LOW);
     Serial.println("Connected");
   }
