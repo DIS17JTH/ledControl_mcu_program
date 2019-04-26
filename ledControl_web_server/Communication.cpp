@@ -1,5 +1,14 @@
 #include "Communication.h"
 
+int getValueSetByBrightness(int value, int brightness)
+{
+    return (brightness * value) / 255;
+}
+
+int stringToInteger(char c1)
+{
+    return integerLUT(c1);
+}
 int stringToInteger(char c1, char c2, char c3)
 {
     int i1 = integerLUT(c1);
@@ -8,6 +17,23 @@ int stringToInteger(char c1, char c2, char c3)
 
     return i1 * 100 + i2 * 10 + i3;
 }
+
+int stringToInteger(char c1, char c2, char c3, char c4, char c5, char c6, char c7, char c8, char c9, char c10)
+{
+    int i1 = integerLUT(c1);
+    int i2 = integerLUT(c2);
+    int i3 = integerLUT(c3);
+    int i4 = integerLUT(c4);
+    int i5 = integerLUT(c5);
+    int i6 = integerLUT(c6);
+    int i7 = integerLUT(c7);
+    int i8 = integerLUT(c8);
+    int i9 = integerLUT(c9);
+    int i10 = integerLUT(c10);
+
+    return i2 * 1000000000 + i2 * 100000000 + i3 * 10000000 + i4 * 1000000 + i5 * 100000 + i6 * 10000 + i7 * 1000 + i8 * 100 + i9 * 10 + i10;
+}
+
 int integerLUT(char c)
 {
     switch (c)
