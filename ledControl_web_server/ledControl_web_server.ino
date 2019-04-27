@@ -81,18 +81,24 @@ void loop()
       }
 
       LEDControl ledControl(controlString);
-
-      if ((ledControl.getRed() == 0 && ledControl.getGreen() == 0 && ledControl.getBlue() == 0) || ledControl.getBrightness() == 0) // YOU CAN REMOVE THESE IF & ELSE STATMENTS IF YOU WANT. THEY ARE FOR TEST PURPOSES ONLY
+      //Serial.println(controlString);
+      if (ledControl.getRed() == 0 && ledControl.getGreen() == 0 && ledControl.getBlue() == 0) // YOU CAN REMOVE THESE IF & ELSE STATMENTS IF YOU WANT. THEY ARE FOR TEST PURPOSES ONLY
       {
-        digitalWrite(LED_BUILTIN, HIGH);
-        isLit = true;
-        applySettings(ledControl, LEDstrip);
+        if (ledControl.getBrightness() == 0)
+        {
+          digitalWrite(LED_BUILTIN, HIGH);
+          isLit = true;
+          Serial.println("LED on");
+          applySettings(ledControl, LEDstrip);
+        }
       }
       else
       {
         digitalWrite(LED_BUILTIN, LOW);
         isLit = false;
+        Serial.println("LED off");
       }
+      LEDstrip.show(); // SHOWS ALL THE LED THAT YOU'VE SET
     }
     Serial.println("LEDclient Disconnecting");
     LEDclient.stop();
@@ -113,6 +119,9 @@ void applySettings(LEDControl &ledControl, Adafruit_NeoPixel &LEDstrip)
   int red = ledControl.getRed();
   int green = ledControl.getGreen();
   int blue = ledControl.getBlue();
+  Serial.println(red);
+  Serial.println(blue);
+  Serial.println(green);
 
   for (int j = 0; j < NUM_LEDS; j++) // ITERATES THROUGH EVERY LED
   {
@@ -121,6 +130,4 @@ void applySettings(LEDControl &ledControl, Adafruit_NeoPixel &LEDstrip)
                            getValueSetByBrightness(green, brightness),
                            getValueSetByBrightness(blue, brightness)); // SETS EVERY LED TO CORRECT COLOR
   }
-
-  LEDstrip.show(); // SHOWS ALL THE LED THAT YOU'VE SET
 }

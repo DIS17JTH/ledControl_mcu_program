@@ -64,14 +64,17 @@ int LEDControl::getBrightness()
 {
     return brightness;
 }
+
 int LEDControl::getRed()
 {
     return red;
 }
+
 int LEDControl::getGreen()
 {
     return green;
 }
+
 int LEDControl::getBlue()
 {
     return blue;

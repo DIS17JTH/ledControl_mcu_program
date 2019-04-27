@@ -15,19 +15,19 @@ class LEDControl
     int getBlue();
 
   private:
-    int brightness,
-        red,
-        green,
-        blue,
-        strobe,
-        sWaveform,
-        sHeight,
-        sFreq,
-        sAmpl,
-        sOffset,
-        audioSync,
-        ledControl,
-        LEDs;
+    int brightness;
+    int red;
+    int green;
+    int blue;
+    int strobe;
+    int sWaveform;
+    int sHeight;
+    int sFreq;
+    int sAmpl;
+    int sOffset;
+    int audioSync;
+    int ledControl;
+    int LEDs;
     const int offsetStrobe = 16;
     const int offsetSW = 18;
     const int offsetSH = 22;
