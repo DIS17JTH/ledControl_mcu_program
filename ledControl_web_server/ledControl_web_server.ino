@@ -19,6 +19,7 @@ WiFiServer server(LISTENINGPORT);
 WiFiClient LEDclient;
 Adafruit_NeoPixel LEDstrip = Adafruit_NeoPixel(NUM_LEDS, PIN, NEO_GRB + NEO_KHZ800); // initializes the LED-trip
 
+bool ledIsOn(LEDControl &ledControl);
 void applySettings(LEDControl &ledControl, Adafruit_NeoPixel &LEDstrip);
 
 void setup()
@@ -28,7 +29,8 @@ void setup()
 
   //serial communication
   Serial.begin(9600);
-
+  Serial.println();
+  
   //initialize LED strip
   LEDstrip.begin();
   LEDstrip.show();
@@ -42,7 +44,7 @@ void setup()
     digitalWrite(LED_BUILTIN, LOW);
     delay(100);
     digitalWrite(LED_BUILTIN, HIGH);
-    Serial.println(".");
+    Serial.print(".");
   }
 
   if (WiFi.status() == WL_CONNECTED) // CONNECTION ESSTABLISHED; BLINK ONCE
@@ -82,23 +84,18 @@ void loop()
 
       LEDControl ledControl(controlString);
       //Serial.println(controlString);
-      if (ledControl.getRed() == 0 && ledControl.getGreen() == 0 && ledControl.getBlue() == 0) // YOU CAN REMOVE THESE IF & ELSE STATMENTS IF YOU WANT. THEY ARE FOR TEST PURPOSES ONLY
+      //Serial.println(ledControl.getRed();
+      if (ledIsOn(ledControl)) // YOU CAN REMOVE THESE IF & ELSE STATMENTS IF YOU WANT. THEY ARE FOR TEST PURPOSES ONLY
       {
-        if (ledControl.getBrightness() == 0)
-        {
-          digitalWrite(LED_BUILTIN, HIGH);
+          digitalWrite(LED_BUILTIN, isLit);
           isLit = true;
-          Serial.println("LED on");
           applySettings(ledControl, LEDstrip);
-        }
       }
       else
       {
-        digitalWrite(LED_BUILTIN, LOW);
+        digitalWrite(LED_BUILTIN, isLit);
         isLit = false;
-        Serial.println("LED off");
       }
-      LEDstrip.show(); // SHOWS ALL THE LED THAT YOU'VE SET
     }
     Serial.println("LEDclient Disconnecting");
     LEDclient.stop();
@@ -112,6 +109,15 @@ void loop()
   }
 }
 
+bool ledIsOn(LEDControl &ledControl)
+{
+  if((ledControl.getRed() != 0 && ledControl.getGreen() != 0 && ledControl.getBlue() != 0) || ledControl.getBrightness() != 0)
+  {
+    return true;
+  }
+  return false;
+}
+
 //set pixels on the LEDStrip
 void applySettings(LEDControl &ledControl, Adafruit_NeoPixel &LEDstrip)
 {
@@ -119,9 +125,9 @@ void applySettings(LEDControl &ledControl, Adafruit_NeoPixel &LEDstrip)
   int red = ledControl.getRed();
   int green = ledControl.getGreen();
   int blue = ledControl.getBlue();
-  Serial.println(red);
-  Serial.println(blue);
-  Serial.println(green);
+  //Serial.println(red);
+  //Serial.println(blue);
+  //Serial.println(green);
 
   for (int j = 0; j < NUM_LEDS; j++) // ITERATES THROUGH EVERY LED
   {
@@ -130,4 +136,6 @@ void applySettings(LEDControl &ledControl, Adafruit_NeoPixel &LEDstrip)
                            getValueSetByBrightness(green, brightness),
                            getValueSetByBrightness(blue, brightness)); // SETS EVERY LED TO CORRECT COLOR
   }
+
+  LEDstrip.show(); // SHOWS ALL THE LED THAT YOU'VE SET
 }
