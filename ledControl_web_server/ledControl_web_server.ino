@@ -30,7 +30,7 @@ void setup()
   //serial communication
   Serial.begin(9600);
   Serial.println();
-  
+
   //initialize LED strip
   LEDstrip.begin();
   LEDstrip.show();
@@ -87,9 +87,9 @@ void loop()
       //Serial.println(ledControl.getRed();
       if (ledIsOn(ledControl)) // YOU CAN REMOVE THESE IF & ELSE STATMENTS IF YOU WANT. THEY ARE FOR TEST PURPOSES ONLY
       {
-          digitalWrite(LED_BUILTIN, isLit);
-          isLit = true;
-          applySettings(ledControl, LEDstrip);
+        digitalWrite(LED_BUILTIN, isLit);
+        isLit = true;
+        applySettings(ledControl, LEDstrip);
       }
       else
       {
@@ -111,7 +111,7 @@ void loop()
 
 bool ledIsOn(LEDControl &ledControl)
 {
-  if((ledControl.getRed() != 0 && ledControl.getGreen() != 0 && ledControl.getBlue() != 0) || ledControl.getBrightness() != 0)
+  if ((ledControl.getRed() != 0 && ledControl.getGreen() != 0 && ledControl.getBlue() != 0) || ledControl.getBrightness() != 0)
   {
     return true;
   }

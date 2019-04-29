@@ -9,25 +9,30 @@ class LEDControl
 public:
   LEDControl();
   LEDControl(std::string controlString);
+  void setBrightness(int brightness);
+  void setRed(int red);
+  void setGreen(int green);
+  void setBlue(int blue);
   int getBrightness();
   int getRed();
   int getGreen();
   int getBlue();
+  ~LEDControl();
 
 private:
-  int brightness;
-  int red;
-  int green;
-  int blue;
-  int strobe;
-  int sWaveform;
-  int sHeight;
-  int sFreq;
-  int sAmpl;
-  int sOffset;
-  int audioSync;
-  int ledControl;
-  int LEDs;
+  int _brightness;
+  int _red;
+  int _green;
+  int _blue;
+  int _strobe;
+  int _sWaveform;
+  int _sHeight;
+  int _sFreq;
+  int _sAmpl;
+  int _sOffset;
+  int _audioSync;
+  int _ledControl;
+  int _LEDs;
   const int offsetStrobe = 16;
   const int offsetSW = 18;
   const int offsetSH = 22;
