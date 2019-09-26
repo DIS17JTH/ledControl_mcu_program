@@ -13,7 +13,7 @@ LEDControl::LEDControl()
     _sAmpl = 0;
     _sOffset = 0;
     _audioSync = 0;
-    _ledControl = 0;
+    _LEDControl = 0;
     _LEDs = 0;
 }
 
@@ -49,7 +49,7 @@ LEDControl::LEDControl(std::string controlString)
                                controlString[offsetAudioSync + 2],
                                controlString[offsetAudioSync + 3]);
     _audioSync = stringToInteger(controlString[offsetLEDControl + 1]);
-    _ledControl = stringToInteger(controlString[offsetLEDControl + 1]);
+    _LEDControl = stringToInteger(controlString[offsetLEDControl + 1]);
     _LEDs = stringToInteger(controlString[offsetLEDs + 1],
                             controlString[offsetLEDs + 2],
                             controlString[offsetLEDs + 3],
@@ -62,45 +62,108 @@ LEDControl::LEDControl(std::string controlString)
                             controlString[offsetLEDs + 10]);
 }
 
+//SETTERS
 void LEDControl::setBrightness(int brightness)
 {
     _brightness = brightness;
 }
-
 void LEDControl::setRed(int red)
 {
     _red = red;
 }
-
 void LEDControl::setGreen(int green)
 {
     _green = green;
 }
-
 void LEDControl::setBlue(int blue)
 {
     _blue = blue;
 }
-
+void LEDControl::setStrobe(int strobe)
+{
+    _strobe = strobe;
+}
+void LEDControl::setSWaveform(int sWaveform)
+{
+    _sWaveform = sWaveform;
+}
+void LEDControl::setSHeight(int sHeight)
+{
+    _sHeight = sHeight;
+}
+void LEDControl::setSFreq(int sFreq)
+{
+    _sFreq = sFreq;
+}
+void LEDControl::setSAmpl(int sAmpl)
+{
+    _sAmpl = sAmpl;
+}
+void LEDControl::setSOffset(int sOffset)
+{
+    _sOffset = sOffset;
+}
+void LEDControl::setAudioSync(int audioSync)
+{
+    _audioSync = audioSync;
+}
+void LEDControl::setLEDControl(int LEDControl)
+{
+    _LEDControl = LEDControl;
+}
+void LEDControl::setLEDs(int LEDs)
+{
+    _LEDs = LEDs;
+}
+//GETTERS
 int LEDControl::getBrightness()
 {
     return _brightness;
 }
-
 int LEDControl::getRed()
 {
     return _red;
 }
-
 int LEDControl::getGreen()
 {
     return _green;
 }
-
 int LEDControl::getBlue()
 {
     return _blue;
 }
+int LEDControl::getSWaveform()
+{
+    return _sWaveform;
+}
+int LEDControl::getSHeight()
+{
+    return _sHeight;
+}
+int LEDControl::getSFreq()
+{
+    return _sFreq;
+}
+int LEDControl::getSAmpl()
+{
+    return _sAmpl;
+}
+int LEDControl::getSOffset()
+{
+    return _sOffset;
+}
+int LEDControl::getAudioSync()
+{
+    return _audioSync;
+}
+int LEDControl::getLEDControl()
+{
+    return _LEDControl;
+}
+/*bool LEDControl::*getLEDarr()
+{
+    return NULL;
+}*/
 
 LEDControl::~LEDControl()
 {

@@ -13,10 +13,28 @@ public:
   void setRed(int red);
   void setGreen(int green);
   void setBlue(int blue);
+  void setStrobe(int strobe);
+  void setSWaveform(int sWaveform);
+  void setSHeight(int sHeight);
+  void setSFreq(int sFreq);
+  void setSAmpl(int sAmpl);
+  void setSOffset(int sOffset);
+  void setAudioSync(int audioSync);
+  void setLEDControl(int LEDControl);
+  void setLEDs(int LEDs);
   int getBrightness();
   int getRed();
   int getGreen();
   int getBlue();
+  int getSWaveform();
+  int getSHeight();
+  int getSFreq();
+  int getSAmpl();
+  int getSOffset();
+  int getAudioSync();
+  int getLEDControl();
+  int getLEDs();
+  //bool *getLEDarr();
   ~LEDControl();
 
 private:
@@ -31,7 +49,7 @@ private:
   int _sAmpl;
   int _sOffset;
   int _audioSync;
-  int _ledControl;
+  int _LEDControl;
   int _LEDs;
   const int offsetStrobe = 16;
   const int offsetSW = 18;

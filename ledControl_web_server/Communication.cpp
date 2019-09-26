@@ -1,6 +1,6 @@
 #include "Communication.h"
 
-int getValueSetByBrightness(int value, int brightness)
+inline int getValueSetByBrightness(int value, int brightness)
 {
     return (brightness * value) / 255;
 }

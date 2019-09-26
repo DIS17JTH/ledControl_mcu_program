@@ -18,8 +18,9 @@ WiFiServer server(LISTENINGPORT);
 //declaration of global variables
 WiFiClient LEDclient;
 Adafruit_NeoPixel LEDstrip = Adafruit_NeoPixel(NUM_LEDS, PIN, NEO_GRB + NEO_KHZ800); // initializes the LED-trip
+LEDControl ledControl();
 
-bool ledIsOn(LEDControl &ledControl);
+inline bool ledIsOn(LEDControl &ledControl);
 void applySettings(LEDControl &ledControl, Adafruit_NeoPixel &LEDstrip);
 
 void setup()
@@ -31,9 +32,10 @@ void setup()
   Serial.begin(9600);
   Serial.println();
 
-  //initialize LED strip
+  //LED strip
   LEDstrip.begin();
   LEDstrip.show();
+  LEDstrip.setBrightness(100);
 
   WiFi.begin(ssid, password);
 
@@ -50,9 +52,9 @@ void setup()
   if (WiFi.status() == WL_CONNECTED) // CONNECTION ESSTABLISHED; BLINK ONCE
   {
     delay(100);
-    digitalWrite(LED_BUILTIN, HIGH);
-    delay(100);
     digitalWrite(LED_BUILTIN, LOW);
+    delay(100);
+    digitalWrite(LED_BUILTIN, HIGH);
     Serial.println("Connected");
   }
 
@@ -87,14 +89,10 @@ void loop()
       //Serial.println(ledControl.getRed();
       if (ledIsOn(ledControl)) // YOU CAN REMOVE THESE IF & ELSE STATMENTS IF YOU WANT. THEY ARE FOR TEST PURPOSES ONLY
       {
-        digitalWrite(LED_BUILTIN, isLit);
-        isLit = true;
         applySettings(ledControl, LEDstrip);
       }
       else
       {
-        digitalWrite(LED_BUILTIN, isLit);
-        isLit = false;
       }
     }
     Serial.println("LEDclient Disconnecting");
@@ -109,7 +107,7 @@ void loop()
   }
 }
 
-bool ledIsOn(LEDControl &ledControl)
+inline bool ledIsOn(LEDControl &ledControl)
 {
   if ((ledControl.getRed() != 0 && ledControl.getGreen() != 0 && ledControl.getBlue() != 0) || ledControl.getBrightness() != 0)
   {
@@ -125,16 +123,27 @@ void applySettings(LEDControl &ledControl, Adafruit_NeoPixel &LEDstrip)
   int red = ledControl.getRed();
   int green = ledControl.getGreen();
   int blue = ledControl.getBlue();
-  //Serial.println(red);
-  //Serial.println(blue);
-  //Serial.println(green);
+
+  int invLED[10] = {
+      stringToInteger(controlString[40 + 1]),
+      stringToInteger(controlString[40 + 2]),
+      stringToInteger(controlString[40 + 3]),
+      stringToInteger(controlString[40 + 4]),
+      stringToInteger(controlString[40 + 5]),
+      stringToInteger(controlString[40 + 6]),
+      stringToInteger(controlString[40 + 7]),
+      stringToInteger(controlString[40 + 8]),
+      stringToInteger(controlString[40 + 9]),
+      stringToInteger(controlString[40 + 10])};
 
   for (int j = 0; j < NUM_LEDS; j++) // ITERATES THROUGH EVERY LED
   {
-    LEDstrip.setPixelColor(j,
-                           getValueSetByBrightness(red, brightness),
-                           getValueSetByBrightness(green, brightness),
-                           getValueSetByBrightness(blue, brightness)); // SETS EVERY LED TO CORRECT COLOR
+    int mod = j % 10;
+
+    if (invLED[mod] == 1)
+      LEDstrip.setPixelColor(j, getValueSetByBrightness(red, brightness),
+                             getValueSetByBrightness(green, brightness),
+                             getValueSetByBrightness(blue, brightness)); // SETS EVERY LED TO CORRECT COLOR
   }
 
   LEDstrip.show(); // SHOWS ALL THE LED THAT YOU'VE SET
